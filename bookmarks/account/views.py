@@ -1,11 +1,12 @@
 from django.http import HttpResponse
-
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm
+from .forms import LoginForm, UserRegistrationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 
 
+
+# User Login View
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -25,17 +26,42 @@ def user_login(request):
         form = LoginForm()
     return render(request, 'account/login.html', {'form': form})
 
+
+# User Dashboard View
 @login_required
 def dashboard(request):
-    return render(request,
-    'account/dashboard.html',
-    {'section': 'dashboard'})
+    template_name = 'account/dashboard.html'
+    context = {
+        'section': 'dashboard'
+    }
+    return render(request,template_name, context)
 
 
 
-# TODO  :   User Logout View
+# User Logout View
 def logout_view(request):
     logout(request)
-    # return redirect('login')
-    return render(request,
-    'account/logout.html')
+    template_name = 'account/logout.html'
+    return render(request,template_name)
+
+
+# User Registration View
+def register(request):
+    template_name = 'account/register.html'
+    if request.method == 'POST':
+        user_form = UserRegistrationForm(request.POST)
+        if user_form.is_valid():
+            # Create a new user object but avoid saving it yet
+            new_user = user_form.save(commit=False)
+            # Set the chosen password
+            new_user.set_password(
+            user_form.cleaned_data['password'])
+            # Save the User object
+            new_user.save()
+            return render(request,'account/register_done.html',{'new_user': new_user})
+    else:
+        user_form = UserRegistrationForm()
+    context={
+        'user_form': user_form
+    }
+    return render(request,template_name,context)

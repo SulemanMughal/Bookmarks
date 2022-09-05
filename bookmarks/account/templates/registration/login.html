@@ -9,7 +9,7 @@
             <h1 class="text-start mb-4 fw-bolder">
                 Log-in
             </h1>
-            <p class="text-start mb-4">Please, use the following form to log-in:</p>
+            <p class="text-start mb-4">Please, use the following form to log-in. If you don't have an account <a href='{% url "register" %}' class="card-link fw-bolder text-success">register here</a></p>
             <form action="{% url 'login' %}" method="post" class="row g-3 needs-validation" novalidate>
                 <div class="col-12 col-lg-8">
                     <label for="id_username" class="form-label">Username</label>
