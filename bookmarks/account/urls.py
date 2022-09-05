@@ -1,7 +1,7 @@
 # from django.conf.urls import url
 from django.urls import path
 from . import views
-from django.contrib.auth.views import LoginView, LogoutView, logout_then_login
+from django.contrib.auth.views import LoginView, LogoutView, logout_then_login, PasswordChangeView, PasswordChangeDoneView
 
 urlpatterns = [
     # login url
@@ -19,5 +19,10 @@ urlpatterns = [
 
     # Dashboard url
     path('', views.dashboard, name='dashboard'),
+
+
+    # change password urls
+    path('password-change/', PasswordChangeView.as_view(), name='password_change'),
+    path('password-change/done/', PasswordChangeDoneView.as_view(), name='password_change_done'),
 
 ]
