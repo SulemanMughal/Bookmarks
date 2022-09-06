@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     
     # Override default accounts app
     'account',
+
+    # Third-Party Apps
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -161,4 +164,10 @@ DEFAULT_FROM_EMAIL = "XXXX"
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'account.authentication.EmailAuthBackend',
+    'social.backends.facebook.FacebookOAuth2',
+    # 'social_auth.backends.facebook.FacebookBackend',
 )
+
+SOCIAL_AUTH_FACEBOOK_KEY = 'XXX' # Facebook App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = 'XXX' # Facebook App Secret
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
