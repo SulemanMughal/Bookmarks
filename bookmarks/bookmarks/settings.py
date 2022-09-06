@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-yi+*g)p)jqlo_la(@*dk^&7a!3c77+77djmnmk)#+*)lpyehmk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mysite.com' , '127.0.0.1']
 
 
 # Application definition
@@ -162,12 +162,26 @@ DEFAULT_FROM_EMAIL = "XXXX"
 
 
 AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     'account.authentication.EmailAuthBackend',
     'social.backends.facebook.FacebookOAuth2',
+    'social.backends.twitter.TwitterOAuth',
+    # 'social.backends.google.GoogleOAuth2',
     # 'social_auth.backends.facebook.FacebookBackend',
 )
+
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = { 'prompt': 'select_account' }
 
 SOCIAL_AUTH_FACEBOOK_KEY = 'XXX' # Facebook App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = 'XXX' # Facebook App Secret
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+
+
+SOCIAL_AUTH_TWITTER_KEY = 'XXX' # Twitter Consumer Key
+SOCIAL_AUTH_TWITTER_SECRET = 'XXX' # Twitter Consumer Secret
+
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '523323969562-hbieu67q8ol6ivs60h38hulnsd4gm6dn.apps.googleusercontent.com' # Google Consumer Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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' # Google Consumer Secret
