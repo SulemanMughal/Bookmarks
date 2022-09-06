@@ -43,8 +43,12 @@ INSTALLED_APPS = [
     # Override default accounts app
     'account',
 
+    # Local apps
+    "images",
+
     # Third-Party Apps
     'social_django',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +68,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'account/templates/'),
+            os.path.join(BASE_DIR, 'images/templates/'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
