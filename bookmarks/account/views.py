@@ -1,9 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .forms import LoginForm, UserRegistrationForm
+from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-
+from .models import Profile
+from django.contrib import messages
 
 
 # User Login View
@@ -65,3 +66,40 @@ def register(request):
         'user_form': user_form
     }
     return render(request,template_name,context)
+
+@login_required
+def edit(request):
+    profile, created = Profile.objects.get_or_create(user = request.user)
+    # print(profile)
+    if created:
+        profile.save()
+    if request.method == 'POST':
+        # print(request.POST)
+        user_form = UserEditForm(instance=request.user,
+        data=request.POST)
+        profile_form = ProfileEditForm(
+        instance=profile,
+        data=request.POST,
+        files=request.FILES)
+        if user_form.is_valid():
+            user_form.save()
+            # print("User save")
+        if  profile_form.is_valid():
+            profile_form.save()
+
+        # messages.success(request, "Changes has been updated successfully.")
+        # mess
+            # print("Profile save")
+        # return render(request,
+        # 'account/edit.html',
+        # {'user_form': user_form,
+        # 'profile_form': profile_form})
+    else:
+        user_form = UserEditForm(instance=request.user)
+        profile_form = ProfileEditForm( instance=profile)
+
+    # print(profile_form)
+    return render(request,
+    'account/edit.html',
+    {'user_form': user_form,
+    'profile_form': profile_form})
