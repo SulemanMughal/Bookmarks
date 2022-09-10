@@ -8,6 +8,8 @@ from django.utils.text import slugify
 from django.urls import reverse
 
 
+
+
 class Image(models.Model):
     user = models.ForeignKey(User,related_name='images_created' , on_delete=models.CASCADE)
     users_like = models.ManyToManyField(User,  related_name='images_liked', blank=True )
@@ -19,9 +21,15 @@ class Image(models.Model):
     description = models.TextField(blank=True)
     created = models.DateField(auto_now_add=True,
     db_index=True)
+    total_likes = models.PositiveIntegerField(db_index=True,default=0)
+    
+    class Meta:
+        ordering = ['-id']
     
     def __str__(self):
         return self.title
+
+    
 
 
     def get_absolute_url(self):
@@ -32,3 +40,4 @@ class Image(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
             super(Image, self).save(*args, **kwargs)
+

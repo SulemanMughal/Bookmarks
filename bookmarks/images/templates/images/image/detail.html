@@ -40,8 +40,8 @@
             <div class="image-likes">
                 {% for user in image.users_like.all %}
                     <div>
-                        <img src="{{ user.profile.photo.url }}">
-                        <p>{{ user.first_name }}</p>
+                        <img src="{{ user.profile.photo.url }}" width="250px" height="250px">
+                        <p class="h2 fw-bolder text-success">{{ user.first_name }}</p>
                     </div>
                     {% empty %}
                     <div>
@@ -76,11 +76,9 @@ if (data['status'] == 'ok')
 {
 var previous_action = $('a.like').data('action');
 // toggle data-action
-$('a.like').data('action', previous_action == 'like' ?
-'unlike' : 'like');
+$('a.like').data('action', previous_action == 'like' ? 'unlike' : 'like');
 // toggle link text
-$('a.like').text(previous_action == 'like' ? 'Unlike' :
-'Like');
+$('a.like').text(previous_action == 'like' ? 'Unlike' :'Like');
 // update total likes
 var previous_likes = parseInt($('span.count .total').
 text());

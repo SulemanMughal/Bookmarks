@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     # Local apps
     "images",
 
+    'actions',
+
     # Third-Party Apps
     'social_django',
     'sorl.thumbnail',
@@ -190,3 +192,9 @@ SOCIAL_AUTH_TWITTER_SECRET = 'XXX' # Twitter Consumer Secret
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '523323969562-hbieu67q8ol6ivs60h38hulnsd4gm6dn.apps.googleusercontent.com' # Google Consumer Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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' # Google Consumer Secret
+
+
+
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: reverse_lazy('user_detail', args=[u.username])
+}
